@@ -44,11 +44,13 @@ console.log(myLibrary)
 
 function bookArr(arr) {
 
-    for (let i = 0; i < myLibrary.length; i++) {
+    for(let i = 0; i < arr.length; i++) {
+
+        
 
         const card = document.createElement('div');
 
-        card.innerHTML = `<div class="card" style="width: 18rem;" data-index-number="${i}">
+        card.innerHTML = `<div class="card" style="width: 18rem;" data-index="">
   <div class="card-body">
     <h5 class="card-title">${arr[i].title}</h5>
     <p class="card-text">${arr[i].author}</p>
@@ -57,18 +59,27 @@ function bookArr(arr) {
     <button class="remove-btn btn btn-danger">Remove</button>
   </div>
 </div>`
+        
         cardContainer.appendChild(card);
+        
+        card.setAttribute('data-index', i);
 
         const removeBtn = document.querySelector('.remove-btn');
-    
-        removeBtn.addEventListener('click', ()=>{
-            cardContainer.remove(card.dataset.indexNumber);
+
+        removeBtn.addEventListener('click', () => {
+            
+            let index = card.getAttribute('data-index')
+            
+            myLibrary.splice(index, 1);
+            
+            cardContainer.removeChild(card);
         });
-    }
+    };
 }
+
 saveBook.addEventListener('click', (e) => {
     e.preventDefault()
-    
+
     const book = new Book(title.value, author.value, pages.value, read.value);
 
     myLibrary.push(book)
@@ -77,10 +88,11 @@ saveBook.addEventListener('click', (e) => {
 
     bookArr(myLibrary)
 
-    title.value = '' 
+    title.value = ''
     author.value = ''
     pages.value = ''
     read.value = ''
+
 });
 
 console.log(myLibrary)
