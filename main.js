@@ -11,6 +11,7 @@ let read = document.querySelector('#read')
 //buttons
 let saveBook = document.querySelector('#save-book')
 let addBook = document.querySelector('#add-book-btn');
+let closeBtn = document.querySelector('.btn-close');
 
 //Book array
 const myLibrary = [];
@@ -40,13 +41,18 @@ addBook.addEventListener('click', () => {
     dialog.showModal();
 });
 
+closeBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    dialog.close()
+})
+
 console.log(myLibrary)
 
 function bookArr(arr) {
 
-    for(let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
 
-        
+
 
         const card = document.createElement('div');
 
@@ -55,23 +61,37 @@ function bookArr(arr) {
     <h5 class="card-title">${arr[i].title}</h5>
     <p class="card-text">${arr[i].author}</p>
     <p class="card-text">${arr[i].pages}</p>
-    <p class="card-text">${arr[i].read}</p>
+    <p class="card-text book-read">${arr[i].read}</p>
     <button class="remove-btn btn btn-danger">Remove</button>
+    <button class="btn btn-warning book-read-btn">Read Status</button>
+
   </div>
 </div>`
-        
+
         cardContainer.appendChild(card);
-        
+
         card.setAttribute('data-index', i);
 
-        const removeBtn = document.querySelector('.remove-btn');
+        const removeBtn = card.querySelector('.remove-btn');
+        const bookReadBtn = card.querySelector('.book-read-btn');
+        const bookRead = card.querySelector('.book-read');
+
+        bookReadBtn.addEventListener('click', ()=>{
+            if(bookRead.innerHTML === "read"){
+                bookRead.innerHTML === 'not read'
+            } else {
+                bookRead.innerHTML === 'read'
+            }
+            console.log('test')
+            console.log(bookRead.innerHTML)
+        })
 
         removeBtn.addEventListener('click', () => {
-            
-            let index = card.getAttribute('data-index')
-            
+
+            let index = parseInt(card.getAttribute('data-index'))
+
             myLibrary.splice(index, 1);
-            
+
             cardContainer.removeChild(card);
         });
     };
