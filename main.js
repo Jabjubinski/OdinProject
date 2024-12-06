@@ -78,12 +78,10 @@ function bookArr(arr) {
 
         bookReadBtn.addEventListener('click', ()=>{
             if(bookRead.innerHTML === "read"){
-                bookRead.innerHTML === 'not read'
+                bookRead.innerHTML = 'not read'
             } else {
-                bookRead.innerHTML === 'read'
+                bookRead.innerHTML = 'read'
             }
-            console.log('test')
-            console.log(bookRead.innerHTML)
         })
 
         removeBtn.addEventListener('click', () => {
